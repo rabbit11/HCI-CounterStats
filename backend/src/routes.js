@@ -41,10 +41,10 @@ routes.get("/profile/:name", (req, res) => {
     const userId = findUserId(req.params.name)
 
     const userProfile = findUser(userId)
-
-    // res.render("./profile/:name/show", { userProfile: userProfile })
-
+    
     console.log(userProfile)
+
+    res.render("/profile/:name/show", { userProfile: userProfile })
 })
 
 module.exports = routes;
