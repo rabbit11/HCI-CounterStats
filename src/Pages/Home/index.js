@@ -1,6 +1,7 @@
 import React from 'react'
 import { Hero, Section } from 'react-landing-page';
 import PrimaryStats from '../../Components/PrimaryStats'
+import WeaponStats from '../../Components/WeaponStats'
 import { 
   Title, 
   Subtitle, 
@@ -15,7 +16,7 @@ export default function Home() {
       <Hero
         color="black"
         bg="white"
-        bgOpacity="0.6"
+        bgOpacity={0.6}
         backgroundImage="https://steamcdn-a.akamaihd.net/apps/csgo/images/inferno/mid1-2.jpg?v=1"
       >
           <Title fontSize={[60]}>Counter Stats -</Title>
@@ -43,7 +44,25 @@ export default function Home() {
 
         <PrimaryStats 
           user='MrFragman'
-          data={{kills: '21.037', win: '45,20%', wins:'533', deaths:'20.960', damage:'2.965.539'}}/>
+          data={
+            { 
+              kills: 72710, 
+              win: '45.20', 
+              wins:'533', 
+              deaths: 69413, 
+              damage: 2965539,
+              acc: '20.6'
+            }
+          }
+        />
+      </Section>
+
+      <Section
+        bg='#525252'
+        color='#fff'
+        heading="See what your best weapons and maps are" >
+
+        <WeaponStats />
       </Section>
     </div>
   );

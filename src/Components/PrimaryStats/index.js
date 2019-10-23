@@ -6,8 +6,9 @@ import {
   MPaper, 
   User,
   Name,
-  MAvatar
+  MAvatar,
 } from './styles';
+import { RadialGauge, RadialGaugeSeries } from 'reaviz';
 
 function PrimaryStats({user, data}) {
   return(
@@ -16,6 +17,46 @@ function PrimaryStats({user, data}) {
         <MAvatar alt="fragman" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4G0LdAD09Z8uFZTTDFGSK12wwJR559zU6pyKcXV2_cjijYeVT" className="my-root-class"/>
         <User>{user}</User>
       </Name>
+
+      <RadialGauge 
+        data={[
+          {
+            key: "K/D Ratio",
+            data: (data.kills/data.deaths).toFixed(3) 
+          },
+        ]} 
+        width={200}
+        height={250}
+        maxValue={2}
+        series={<RadialGaugeSeries minGaugeWidth={150} colorScheme={'#CE003E'} />} 
+      />
+
+      <RadialGauge 
+        data={[
+          {
+            key: "W/L Ratio %",
+            data: data.win
+          },
+        ]} 
+        width={200}
+        height={250}
+        maxValue={100}
+        series={<RadialGaugeSeries minGaugeWidth={150} colorScheme={'#DF8D03'} />} 
+      />
+
+      <RadialGauge 
+        data={[
+          {
+            key: "Accuracy %",
+            data: data.acc
+          },
+        ]} 
+        width={200}
+        height={250}
+        maxValue={100}
+        series={<RadialGaugeSeries minGaugeWidth={150} colorScheme={'#00ECB1'} />} 
+      />
+      
       <Container>
         <MPaper classes={{ root: 'my-root-class' }}>
           <Title>Kills</Title>
@@ -24,12 +65,7 @@ function PrimaryStats({user, data}) {
 
         <MPaper classes={{ root: 'my-root-class' }}>
           <Title>Deaths</Title>
-          <Number>{data.kills}</Number>
-        </MPaper>
-
-        <MPaper classes={{ root: 'my-root-class' }}>
-          <Title>Win %</Title>
-          <Number>{data.win}</Number>
+          <Number>{data.deaths}</Number>
         </MPaper>
 
         <MPaper classes={{ root: 'my-root-class' }}>
