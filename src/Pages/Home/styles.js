@@ -2,10 +2,19 @@ import styled from 'styled-components';
 import { Heading } from 'rebass';
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
-import { ScrollDownIndicator } from 'react-landing-page'
+import { ScrollDownIndicator, Section } from 'react-landing-page'
+import chicken from '../../assets/chicken.png'
+import terror from '../../assets/terro.png'
 
 export const Title = styled(Heading)`
   font-family: 'Counter-Strike';
+`;
+
+export const GraphContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
 `;
 
 export const Subtitle = styled(Heading)`
@@ -36,4 +45,11 @@ export const ScrollDown = styled(ScrollDownIndicator)`
   color: #000;
   font-size: 20px;
   font-weight: bold;
+`
+
+export const SectionBG = styled(Section)`
+  background-image: url(${chicken});
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  background-size: 100px;
 `

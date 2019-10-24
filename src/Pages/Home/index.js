@@ -1,13 +1,15 @@
 import React from 'react'
 import { Hero, Section } from 'react-landing-page';
 import PrimaryStats from '../../Components/PrimaryStats'
-import WeaponStats from '../../Components/WeaponStats'
+import BarStats from '../../Components/BarStats';
 import { 
   Title, 
   Subtitle, 
   Search, 
   MButton, 
-  ScrollDown
+  ScrollDown,
+  GraphContainer,
+  SectionBG
 } from './styles';
  
 export default function Home() {
@@ -57,13 +59,59 @@ export default function Home() {
         />
       </Section>
 
-      <Section
+      <SectionBG
         bg='#525252'
         color='#fff'
         heading="See what your best weapons and maps are" >
 
-        <WeaponStats />
-      </Section>
+        <GraphContainer>
+          <BarStats 
+            data={[
+              {
+                key: "Desert Eagle",
+                data: 2430
+              },
+              {
+                key: "M4A4",
+                data: 6903
+              },
+              {
+                key: "AK-47",
+                data: 29708
+              },
+              {
+                key: "AWP",
+                data: 13111
+              }
+            ]} 
+            title="Weapon Kills"
+            color='orange'
+          />
+
+          <BarStats 
+            data={[
+              {
+                key: "Inferno",
+                data: 2430
+              },
+              {
+                key: "Mirage",
+                data: 4309
+              },
+              {
+                key: "Dust 2",
+                data: 4503
+              },
+              {
+                key: "Vertigo",
+                data: 1234
+              }
+            ]} 
+            title="Map Round Wins"
+            color='#4298f5'
+          />
+        </GraphContainer>
+      </SectionBG>
     </div>
   );
 }
