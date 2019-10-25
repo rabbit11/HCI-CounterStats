@@ -8,8 +8,9 @@ import {
   Search, 
   MButton, 
   ScrollDown,
-  GraphContainer,
-  SectionBG
+  FlexContainer,
+  SectionBG,
+  TitleContainer
 } from './styles';
  
 export default function Home() {
@@ -18,11 +19,12 @@ export default function Home() {
       <Hero
         color="black"
         bg="white"
-        bgOpacity={0.6}
+        bgOpacity={0.1}
         backgroundImage="https://steamcdn-a.akamaihd.net/apps/csgo/images/inferno/mid1-2.jpg?v=1"
       >
-          <Title fontSize={[60]}>Counter Stats -</Title>
-          <Subtitle fontSize={[30]}>Shoot less, hit more</Subtitle>
+          <TitleContainer>
+            <Title fontSize={[60]}>Counter Stats -</Title>
+            <Subtitle fontSize={[30]}>Data visualization for player statistics</Subtitle>
             <Search 
               id="standard-search"
               label="Enter your Steam ID"
@@ -36,6 +38,7 @@ export default function Home() {
             >
               Get your stats
             </MButton>
+          </TitleContainer>
           <ScrollDown />
       </Hero>
       <Section
@@ -64,7 +67,7 @@ export default function Home() {
         color='#fff'
         heading="See what your best weapons and maps are" >
 
-        <GraphContainer>
+        <FlexContainer>
           <BarStats 
             data={[
               {
@@ -110,7 +113,7 @@ export default function Home() {
             title="Map Round Wins"
             color='#4298f5'
           />
-        </GraphContainer>
+        </FlexContainer>
       </SectionBG>
     </div>
   );

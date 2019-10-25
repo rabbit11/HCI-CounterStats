@@ -8,6 +8,10 @@ export const Container = styled.div`
   flex-direction: column;
 `;
 
+export const ChartContainer = styled.div`
+  margin-right: 40px;
+`
+
 export const Title = styled.p`
   color: orange;
   font-size: 30px;

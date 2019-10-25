@@ -4,21 +4,33 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { ScrollDownIndicator, Section } from 'react-landing-page'
 import chicken from '../../assets/chicken.png'
-import terror from '../../assets/terro.png'
 
 export const Title = styled(Heading)`
   font-family: 'Counter-Strike';
+  color: #fff;
 `;
 
-export const GraphContainer = styled.div`
+export const FlexContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
 `;
 
+export const TitleContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #000;
+  background: rgba(0, 0, 0, 0.6);
+  height: 400px;
+  width: 700px;
+  border-radius: 10px;
+`;
+
 export const Subtitle = styled(Heading)`
-  color: #474747;
+  color: orange;
   margin-bottom: 40px;
   font-family: "Roboto";
 `;
@@ -29,21 +41,14 @@ export const Search = styled(TextField)`
   border-radius: 5px;
 `
 
-export const SearchBar = styled.div`
-  padding: '2px 4px';
-  display: 'flex';
-  align-items: 'center';
-  width: 400;
-  background-color: #fff;
-`
-
 export const MButton = styled(Button)`
-  height: 50px;
+  height: 45px;
+
 `
 
 export const ScrollDown = styled(ScrollDownIndicator)`
   color: #000;
-  font-size: 20px;
+  font-size: 27px;
   font-weight: bold;
 `
 
