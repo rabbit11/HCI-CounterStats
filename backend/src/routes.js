@@ -1,7 +1,10 @@
 const express = require('express')
-const routes = express.Router()
+const router = express.Router()
 const apiID = require('steamapi')
 const api = require('steam-js-api')
+const bodyParser = require('body-parser')
+
+router.use(bodyParser)
 
 let apiResult;
 
@@ -37,14 +40,14 @@ const findUserId = (username) => {
 }
 
 
-routes.get("/profile/:name", (req, res) => {
+router.get("/profile/:name", (req, res) => {
     const userId = findUserId(req.params.name)
 
     const userProfile = findUser(userId)
     
     console.log(userProfile)
 
-    res.render("/profile/:name/show", { userProfile: userProfile })
+    res.json(userProfile)
 })
 
-module.exports = routes;
+module.exports = router;

@@ -7,6 +7,7 @@
     "@material-ui/core": "^4.5.0",
     "@material-ui/icons": "^4.4.3",
     "@rebass/preset": "^4.0.5",
+    "body-parser": "^1.19.0",
     "emotion-theming": "^10.0.19",
     "express": "^4.17.1",
     "react": "^16.10.2",
