@@ -2,6 +2,7 @@ import React from 'react'
 import { Hero, Section } from 'react-landing-page';
 import PrimaryStats from '../../Components/PrimaryStats'
 import BarStats from '../../Components/BarStats';
+import CompareChart from '../../Components/CompareChart';
 import { 
   Title, 
   Subtitle, 
@@ -52,11 +53,11 @@ export default function Home() {
           data={
             { 
               kills: 72710, 
-              win: '45.20', 
-              wins:'533', 
+              win: 45.20, 
+              wins: 533, 
               deaths: 69413, 
               damage: 2965539,
-              acc: '20.6'
+              acc: 20.6
             }
           }
         />
@@ -115,6 +116,31 @@ export default function Home() {
           />
         </FlexContainer>
       </SectionBG>
+
+      <Section
+        bg='#212121'
+        color='#fff'
+        heading="Compare yourself to friends"
+        subhead="">
+        
+        <CompareChart 
+          player1={{
+            name: "MrFragman",
+            adr: 131.54,
+            kdr: 1.02,
+            hs: 5640,
+            mvps: 2177
+          }}
+          player2={{
+            name: "20matar70fugir",
+            adr: 142.87,
+            kdr: 1.04,
+            hs: 5382,
+            mvps: 2015
+          }}
+        />
+              
+      </Section>
     </div>
   );
 }

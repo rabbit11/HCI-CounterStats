@@ -9,7 +9,6 @@ import {
   MAvatar,
 } from './styles';
 import { RadialGauge, RadialGaugeSeries } from 'reaviz';
-import ak47 from '../../assets/svg_normal/weapon_ak47.svg'
 
 function PrimaryStats({user, data}) {
   return(

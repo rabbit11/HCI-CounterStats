@@ -32,6 +32,7 @@ export const TitleContainer = styled.div`
 export const Subtitle = styled(Heading)`
   color: orange;
   margin-bottom: 40px;
+  font-size: 25px;
   font-family: "Roboto";
 `;
 
