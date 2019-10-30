@@ -1,20 +1,19 @@
 const express = require('express')
-const router = express.Router()
 const apiID = require('steamapi')
 const api = require('steam-js-api')
 const bodyParser = require('body-parser')
 
-router.use(bodyParser)
+const routes = express.Router()
 
-let apiResult;
+routes.use(bodyParser.json())
 
 const steam = new apiID('A897E04835D9E1F7B63F373919191882')
 
 api.setKey('A897E04835D9E1F7B63F373919191882')
 
-steamID = '76561198056485411' // My Steam ID, feel free to use it for testing :)
-appID = 730 // We only want to check for one game
-moreInfo = true // Provide more info (name, links)
+let steamID = '' // My Steam ID, feel free to use it for testing :)
+const appID = 730 // We only want to check for one game
+const moreInfo = true // Provide more info (name, links)
 
 // With a callback
 const findUser = (steamID) => {
@@ -29,25 +28,40 @@ const findUser = (steamID) => {
 
 const findUserId = (username) => {
     const link = 'https://steamcommunity.com/id/'
-    const userLink = link.concat(username)
+    // const userLink = link.concat(username)
+    const userLink = link + username
 
-    steam.resolve(userLink).then(id => {
-        console.log(id); // 76561198146931523
-        // steamID = id
+    let id = ''
+    steam.resolve(userLink).then(steamID, id => {
+        console.log('O id de ' + username + ' e: ' + id); // 76561198146931523
+        
+        id = steamID
 
-        return id
+        console.log(id + ' meajuda')
+
+        return steamID
     });
+    // console.log(id + ' helpa')
+    // return id
 }
 
+routes.get('/teste', (req,res) => {
+    console.log('deu bom!!!!')
 
-router.get("/profile/:name", (req, res) => {
+})
+
+routes.get("/profile/:name", (req, res) => {
     const userId = findUserId(req.params.name)
 
     const userProfile = findUser(userId)
+
+    if (userId != '76561198146931523') {
+        console.log(userId)
+    }
     
     console.log(userProfile)
 
     res.json(userProfile)
 })
 
-module.exports = router;
+module.exports = routes;

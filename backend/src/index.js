@@ -1,9 +1,11 @@
 const express = require('express')
-const router = express.Router()
+// const router = express.Router()
 const routes = require('./routes')
 
-router.use(routes);
+const app = express()
 
-router.listen(3000, () => {
-    console.log('Counter-Stats Go server started')
+app.use(routes);
+
+app.listen(3000, () => {
+    console.log('Counter-Stats Go server started on port 3000')
 })
