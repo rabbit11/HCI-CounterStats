@@ -17,32 +17,29 @@ const moreInfo = true // Provide more info (name, links)
 
 // With a callback
 const findUser = (steamID) => {
-    api.getStats(steamID, 730).then(result => {
-        console.log(result.data)
-        console.log(result.data.stats.gun.awp)
-        // apiResult = result
-    
-        return result
-    }).catch(console.error)
+    return new Promise((resolve, reject) => {
+        api.getStats(steamID, 730).then(result => {
+            console.log(result.data)
+            console.log(result.data.stats.gun.awp)
+            // apiResult = result
+        
+            return result
+        }).catch(console.error)
+    })
 }
 
 const findUserId = (username) => {
-    const link = 'https://steamcommunity.com/id/'
-    // const userLink = link.concat(username)
-    const userLink = link + username
-
-    let id = ''
-    steam.resolve(userLink).then(steamID, id => {
-        console.log('O id de ' + username + ' e: ' + id); // 76561198146931523
-        
-        id = steamID
-
-        console.log(id + ' meajuda')
-
-        return steamID
-    });
-    // console.log(id + ' helpa')
-    // return id
+    return new Promise((resolve, reject) => {
+        const link = 'https://steamcommunity.com/id/'
+        // const userLink = link.concat(username)
+        const userLink = link + username
+    
+        let id = steam.resolve(userLink).then(id => {
+            console.log('O id de ' + username + ' e: ' + id); // 76561198146931523
+    
+            return id
+        }).catch(console.error)
+    })
 }
 
 routes.get('/teste', (req,res) => {
@@ -50,18 +47,29 @@ routes.get('/teste', (req,res) => {
 
 })
 
+const getUserProfile = (username) => {
+    const user = findUserId(username).then(id => {
+        return findUser(id)
+    })
+
+}
+
 routes.get("/profile/:name", (req, res) => {
-    const userId = findUserId(req.params.name)
+    // const userId = findUserId(req.params.name)
 
-    const userProfile = findUser(userId)
+    // const userProfile = findUser(userId)
 
-    if (userId != '76561198146931523') {
-        console.log(userId)
-    }
+    // if (userId != '76561198146931523') {
+    //     console.log(userId)
+    // }
     
-    console.log(userProfile)
+    // console.log(userProfile)
 
-    res.json(userProfile)
+    const user = getUserProfile(req.params.name)
+
+    console.log(user)
+    
+    res.json(user)
 })
 
 module.exports = routes;
