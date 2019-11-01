@@ -8,37 +8,40 @@ const steam = new apiID('A897E04835D9E1F7B63F373919191882')
 
 api.setKey('A897E04835D9E1F7B63F373919191882')
 
-let steamID = '' // My Steam ID, feel free to use it for testing :)
-const appID = 730 // We only want to check for one game
-const moreInfo = true // Provide more info (name, links)
+const APP_ID = 730 // We only want to check for one game
 
 // With a callback
-const findUser = async (steamID) => {
-
-    const user = await api.getStats(steamID, 730)
-
-    return user
+const findUser = async (username) => {
+    try {
+        const userId = await findUserId(username)
+        console.log(userId)
+        const user = await api.getStats(userId, APP_ID)
+        console.log(user)
+    
+        return user
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 const findUserId = async (username) => {
-    const link = 'https://steamcommunity.com/id/'
-    const userLink = link + username
-
-    const id = await steam.resolve(userLink)
-
-    return id
+    try {
+        console.log('nome: ' + username)
+        const link = 'https://steamcommunity.com/id/'
+        const userLink = link + username
+    
+        const id = await steam.resolve(userLink)
+    
+        return id
+    } catch (error) {
+        console.log("Cant find user id: " + error.message)
+    }
 }
 
-routes.get('/teste', (req, res) => {
-    console.log('deu bom!!!!')
-
-})
-
 routes.get("/profile/:name", async (req, res) => {
-    const userId = await findUserId(req.params.name)
-    const user = await findUser(userId)
+    const user = await findUser(req.params.name)
 
-    return res.json({ user: user })
+    return res.json(user.data)
 })
 
 module.exports = routes;
