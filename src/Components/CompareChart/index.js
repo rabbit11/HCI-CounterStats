@@ -61,8 +61,8 @@ function CompareChart({player1, player2}) {
           ? <p style={{color: 'orange', fontWeight: 'bold'}}>{hs}</p> 
           : <p>{hs}</p>}
         <h1>ADR</h1>
-        {Math.max(hs, hs2) === hs 
-          ? <p style={{color: 'orange', fontWeight: 'bold'}}>{hs}</p> 
+        {Math.max(hs, hs2) === hs2 
+          ? <p style={{color: 'orange', fontWeight: 'bold'}}>{hs2}</p> 
           : <p>{hs2}</p>}
       </StatContainer>
       
