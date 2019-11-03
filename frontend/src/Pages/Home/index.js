@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Hero, Section } from 'react-landing-page';
 import PrimaryStats from '../../Components/PrimaryStats'
 import BarStats from '../../Components/BarStats';
@@ -14,7 +14,10 @@ import {
   TitleContainer
 } from './styles';
  
-export default function Home() {
+export default function Home(props) {
+  const [playername, setPlayerName] = useState("")
+  const { history } = props;
+
   return(
     <div>
       <Hero
@@ -32,10 +35,12 @@ export default function Home() {
               type="search"
               margin="normal"
               variant="filled"
+              onChange={(e) => setPlayerName(e.target.value)}
             />
             <MButton
               variant="contained"
               color="primary"
+              onClick={() => history.push(`/stats/${playername}`)}
             >
               Get your stats
             </MButton>

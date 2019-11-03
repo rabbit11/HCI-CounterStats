@@ -14,9 +14,7 @@ const APP_ID = 730 // We only want to check for one game
 const findUser = async (username) => {
     try {
         const userId = await findUserId(username)
-        console.log(userId)
         const user = await api.getStats(userId, APP_ID)
-        console.log(user)
     
         return user
     } catch (error) {
@@ -26,7 +24,6 @@ const findUser = async (username) => {
 
 const findUserId = async (username) => {
     try {
-        console.log('nome: ' + username)
         const link = 'https://steamcommunity.com/id/'
         const userLink = link + username
     

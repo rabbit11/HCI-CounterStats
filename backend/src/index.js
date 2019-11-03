@@ -1,11 +1,13 @@
 const express = require('express')
-// const router = express.Router()
 const routes = require('./routes')
 
-const app = express()
+const cors = require('cors');
 
+const app = express();
+
+app.use(cors());
 app.use(routes);
 
-app.listen(3000, () => {
-    console.log('Counter-Stats Go server started on port 3000')
+app.listen(8080, () => {
+    console.log('Counter-Stats Go server started on port 8080')
 })
