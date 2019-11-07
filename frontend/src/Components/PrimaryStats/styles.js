@@ -1,12 +1,19 @@
 import styled from 'styled-components';
 import Paper from '@material-ui/core/Paper';
-import Avatar from '@material-ui/core/Avatar';
 
 export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+`;
+
+export const StatsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: row;
+  flex-wrap: wrap;
 `;
 
 export const MPaper = styled(Paper)`
@@ -28,24 +35,4 @@ export const Title = styled.p`
 
 export const Number = styled.h2`
   color: #fff;
-`
-
-export const User = styled.h1`
-  color: orange;
-  padding: 10px;
-`
-
-export const Name = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-`
-
-export const MAvatar = styled(Avatar)`
-  &.my-root-class {
-    margin: 10px;
-    width: 50px;
-    height: 50px;
-  }
 `

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Heading } from 'rebass';
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
+import Avatar from '@material-ui/core/Avatar';
 import { ScrollDownIndicator, Section } from 'react-landing-page'
 import chicken from '../../assets/chicken.png'
 
@@ -59,3 +60,25 @@ export const SectionBG = styled(Section)`
   background-position: bottom right;
   background-size: 100px;
 `
+
+export const Name = styled.div`
+  width: 700px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+`
+
+export const MAvatar = styled(Avatar)`
+  &.my-root-class {
+    margin: 10px;
+    width: 50px;
+    height: 50px;
+  }
+`
+
+export const User = styled.h1`
+  color: orange;
+  padding: 10px;
+`
+

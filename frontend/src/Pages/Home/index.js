@@ -11,7 +11,10 @@ import {
   ScrollDown,
   FlexContainer,
   SectionBG,
-  TitleContainer
+  TitleContainer,
+  User,
+  MAvatar,
+  Name
 } from './styles';
  
 export default function Home(props) {
@@ -53,8 +56,12 @@ export default function Home(props) {
         heading="View your stats"
         subhead="Find out where to improve">
 
+        <Name>
+          <MAvatar alt="fragman" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4G0LdAD09Z8uFZTTDFGSK12wwJR559zU6pyKcXV2_cjijYeVT" className="my-root-class"/>
+          <User>MrFragman</User>
+        </Name>
+
         <PrimaryStats 
-          user='MrFragman'
           data={
             { 
               kills: 72710, 
