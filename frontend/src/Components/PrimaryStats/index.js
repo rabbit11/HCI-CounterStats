@@ -72,6 +72,21 @@ function PrimaryStats({data}) {
           <Title>Damage</Title>
           <Number>{data.damage}</Number>
         </MPaper>
+
+        <MPaper classes={{ root: 'my-root-class' }}>
+          <Title>Time Played</Title>
+          <Number>{(data.time / 3600).toFixed(1)} hrs</Number>
+        </MPaper>
+
+        <MPaper classes={{ root: 'my-root-class' }}>
+          <Title>MVPs</Title>
+          <Number>{data.mvps} </Number>
+        </MPaper>
+
+        <MPaper classes={{ root: 'my-root-class' }}>
+          <Title>Headshots</Title>
+          <Number>{data.hs} </Number>
+        </MPaper>
       </StatsContainer>
     </Container>
   )

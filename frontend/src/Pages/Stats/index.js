@@ -6,10 +6,12 @@ import {
   MPaper,
   MTabs,
   Wrapper,
+  Background,
   Title,
 } from './styles';
 import PrimaryStats from '../../Components/PrimaryStats';
-import Tabs from '@material-ui/core/Tabs';
+import LatestMatch from '../../Components/LatestMatch';
+
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -44,14 +46,14 @@ export default function Stats(props) {
   const [data, setData] = useState({});
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (  newValue) => {
     setValue(newValue);
   };
 
   useEffect(() => {
     const loadData = async () => {
       const response = await axios.get('http://localhost:8080/profile/' + props.match.params.playerid);
-      console.log(response)
+      console.log(response.data);
       setData(response.data);
     }
 
@@ -60,16 +62,17 @@ export default function Stats(props) {
 
   return(
     <Wrapper>
+      <Background />
       <Container>
-        <PlayerProfile>
+        {data.userProfile && <PlayerProfile>
           <MAvatar 
             alt="fragman" 
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4G0LdAD09Z8uFZTTDFGSK12wwJR559zU6pyKcXV2_cjijYeVT" 
+            src={data.userProfile.photourl} 
             className="my-root-class"
           />
 
-          <Title>Player Name</Title>
-        </PlayerProfile>
+          <Title>{data.userProfile.username}</Title>
+        </PlayerProfile>}
         <MPaper classes={{ root: 'my-root-class' }}>
           <MTabs
             classes={{ root: 'my-root-class' }}
@@ -87,20 +90,26 @@ export default function Stats(props) {
           value={value}
           index={0}
         >
-          {data.stats && 
+          {data.user && 
             <PrimaryStats
               data={
                 {
-                  kills: data.stats.kills,
-                  win: (data.stats.matches.won/data.stats.matches.played)*100,
-                  wins: data.stats.matches.won,
-                  deaths: data.stats.deaths,
-                  damage: data.stats.damage,
-                  acc: (data.stats.hits/data.stats.shots)*100
+                  kills: data.user.stats.kills,
+                  win: (data.user.stats.matches.won/data.user.stats.matches.played)*100,
+                  wins: data.user.stats.matches.won,
+                  deaths: data.user.stats.deaths,
+                  damage: data.user.stats.damage,
+                  acc: (data.user.stats.hits/data.user.stats.shots)*100,
+                  time: data.user.stats.time,
+                  mvps: data.user.stats.mvps,
+                  hs: data.user.stats.headshots
                 }
               }
             />
           }
+
+          <Title>Latest Match</Title>
+          <LatestMatch />
         </TabPanel>
             
       </Container>
