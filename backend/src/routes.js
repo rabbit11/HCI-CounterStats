@@ -11,9 +11,8 @@ api.setKey('A897E04835D9E1F7B63F373919191882')
 const APP_ID = 730 // We only want to check for one game
 
 // With a callback
-const findUser = async (username) => {
+const findUser = async (userId) => {
     try {
-        const userId = await findUserId(username)
         const user = await api.getStats(userId, APP_ID)
     
         return user
@@ -35,10 +34,34 @@ const findUserId = async (username) => {
     }
 }
 
-routes.get("/profile/:name", async (req, res) => {
-    const user = await findUser(req.params.name)
+const findUserProfile = async (userId) => {
+    try {
+        const playerSummary = await steam.getUserSummary(userId)
 
-    return res.json(user.data)
+        // console.log(playerSummary)
+
+        const userProfile = {
+            username: playerSummary.nickname,
+            photourl: playerSummary.avatar.large
+        }
+
+        // console.log(userProfile)
+
+        return userProfile
+    } catch (error) {
+        console.log("Cant find user's profile")
+    }
+}
+
+routes.get("/profile/:name", async (req, res) => {
+    const userId = await findUserId(req.params.name)
+    const user = await findUser(userId)
+    const userProfile = await findUserProfile(userId)
+
+    return res.json({
+        user: user.data,
+        userProfile: userProfile
+    })
 })
 
 module.exports = routes;
