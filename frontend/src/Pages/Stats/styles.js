@@ -5,8 +5,9 @@ import Tabs from '@material-ui/core/Tabs';
 
 export const Container = styled.div`
   margin-top: 15px;
+  margin-bottom: 15px;
 	width: 55%;
-	background-color: #212121;
+  background-color: #212121;
 `;
 
 export const Wrapper = styled.div`

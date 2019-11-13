@@ -11,7 +11,7 @@ import {
 } from './styles';
 import PrimaryStats from '../../Components/PrimaryStats';
 import LatestMatch from '../../Components/LatestMatch';
-
+import OtherStats from '../../Components/OtherStats';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -107,9 +107,39 @@ export default function Stats(props) {
               }
             />
           }
-
-          <Title>Latest Match</Title>
-          <LatestMatch />
+          {data.user &&
+            <div style={{display: "flex", flexDirection: "row", width: "100%", justifyContent: "center"}}>
+              <div style={{width: "50%"}}>
+                <Title>Latest Match</Title>
+                <LatestMatch 
+                  data={
+                    {
+                      wins: data.user.stats.last.wins,
+                      rounds: data.user.stats.last.rounds,
+                      kills: data.user.stats.last.kills,
+                      deaths: data.user.stats.last.deaths,
+                      mvps: data.user.stats.last.mvps,
+                      money: data.user.stats.last.spending
+                    }
+                  }
+                />
+              </div>
+              <div style={{width: "50%"}}>
+                <Title>Other Stats</Title>
+                <OtherStats 
+                  data={
+                    {
+                      flashbang: data.user.stats.flashKill,
+                      snipers: data.user.stats.snipers,
+                      donated: data.user.stats.donated,
+                      knife: data.user.stats.knife,
+                      defused: data.user.stats.bombs.defused,
+                    }
+                  }
+                />
+              </div>
+            </div>
+          }
         </TabPanel>
             
       </Container>

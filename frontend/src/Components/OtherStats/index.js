@@ -10,51 +10,51 @@ import {
   MListItemText
 } from './styles';
 
-const LatestMatch = ({data}) => {
+const OtherStats = ({data}) => {
   return (
     <ListContainer>
       <MList classes={{ root: 'my-root-class' }}>
 
         <MListItem>
-          <MListItemText primary="Score"/>
+          <MListItemText primary="Flashbanged Enemies Killed"/>
           <ListItemSecondaryAction>
-            <Title>{data.wins}-{data.rounds-data.wins}</Title>
+            <Title>{data.flashbang}</Title>
           </ListItemSecondaryAction>
         </MListItem>
 
         <Divider />
 
         <MListItem>
-          <MListItemText primary="Kills"/>
+          <MListItemText primary="Snipers Killed"/>
           <ListItemSecondaryAction>
-            <Title>{data.kills}</Title>
+            <Title>{data.snipers}</Title>
           </ListItemSecondaryAction>
         </MListItem>
 
         <Divider />
       
         <MListItem>
-          <MListItemText primary="Deaths"/>
+          <MListItemText primary="Guns Donated"/>
           <ListItemSecondaryAction>
-            <Title>{data.deaths}</Title>
+            <Title>{data.donated}</Title>
           </ListItemSecondaryAction>
         </MListItem>
 
         <Divider />
 
         <MListItem>
-          <MListItemText primary="MVPs"/>
+          <MListItemText primary="Knife Kills"/>
           <ListItemSecondaryAction>
-            <Title>{data.mvps}</Title>
+            <Title>{data.knife}</Title>
           </ListItemSecondaryAction>
         </MListItem>
 
         <Divider />
 
         <MListItem>
-          <MListItemText primary="Money Spent"/>
+          <MListItemText primary="Bombs Defused"/>
           <ListItemSecondaryAction>
-            <Title>{data.money}</Title>
+            <Title>{data.defused}</Title>
           </ListItemSecondaryAction>
         </MListItem>
 
@@ -63,4 +63,4 @@ const LatestMatch = ({data}) => {
   )
 };
 
-export default LatestMatch;
+export default OtherStats;
