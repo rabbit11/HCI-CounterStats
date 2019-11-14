@@ -12,56 +12,53 @@ const APP_ID = 730 // We only want to check for one game
 
 // With a callback
 const findUser = async (userId) => {
-    try {
-        const user = await api.getStats(userId, APP_ID)
-    
-        return user
-    } catch (error) {
-        console.log(error)
-    }
+    const user = await api.getStats(userId, APP_ID)
+
+    return user
+
 }
 
 const findUserId = async (username) => {
-    try {
-        const link = 'https://steamcommunity.com/id/'
-        const userLink = link + username
-    
-        const id = await steam.resolve(userLink)
-    
-        return id
-    } catch (error) {
-        console.log("Cant find user id: " + error.message)
-    }
+    const link = 'https://steamcommunity.com/id/'
+    const userLink = link + username
+
+    const id = await steam.resolve(userLink)
+
+    return id
 }
 
 const findUserProfile = async (userId) => {
-    try {
-        const playerSummary = await steam.getUserSummary(userId)
+    const playerSummary = await steam.getUserSummary(userId)
 
-        // console.log(playerSummary)
+    // console.log(playerSummary)
 
-        const userProfile = {
-            username: playerSummary.nickname,
-            photourl: playerSummary.avatar.large
-        }
-
-        // console.log(userProfile)
-
-        return userProfile
-    } catch (error) {
-        console.log("Cant find user's profile")
+    const userProfile = {
+        username: playerSummary.nickname,
+        photourl: playerSummary.avatar.large
     }
+    // console.log(userProfile)
+
+    return userProfile
 }
 
 routes.get("/profile/:name", async (req, res) => {
-    const userId = await findUserId(req.params.name)
-    const user = await findUser(userId)
-    const userProfile = await findUserProfile(userId)
-
-    return res.json({
-        user: user.data,
-        userProfile: userProfile
-    })
+    try {
+        const userId = await findUserId(req.params.name)
+        const user = await findUser(userId)
+        const userProfile = await findUserProfile(userId)
+    
+        const profile = {
+            user: user.data,
+            userProfile: userProfile
+        }
+        
+        return res.json({
+            user: user.data,
+            userProfile: userProfile
+        })
+    } catch(error) {
+        res.status(401).send({error: 'Usuário não encontrado'})
+    }
 })
 
 module.exports = routes;
