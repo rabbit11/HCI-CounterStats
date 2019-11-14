@@ -12,6 +12,7 @@ import {
 import PrimaryStats from '../../Components/PrimaryStats';
 import LatestMatch from '../../Components/LatestMatch';
 import OtherStats from '../../Components/OtherStats';
+import BasicTable from '../../Components/DataTable';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -44,17 +45,32 @@ function TabPanel(props) {
 export default function Stats(props) {
 
   const [data, setData] = useState({});
+  const [weapons, setWeapons] = useState([]);
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (  newValue) => {
+  const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   useEffect(() => {
     const loadData = async () => {
       const response = await axios.get('http://localhost:8080/profile/' + props.match.params.playerid);
-      console.log(response.data);
+    
+      const gunNames = Object.getOwnPropertyNames(response.data.user.stats.gun);
+      const gun = response.data.user.stats.gun;
+      const guns = Object.keys(gun).map(function(key, i) {
+        return {
+          name: gunNames[i],
+          kills: gun[key].kills,
+          shots: gun[key].shots,
+          hits: gun[key].hits
+        }
+      });
+
+      console.log(guns);
+      
       setData(response.data);
+      setWeapons(guns);
     }
 
     loadData();
@@ -141,7 +157,28 @@ export default function Stats(props) {
             </div>
           }
         </TabPanel>
-            
+
+        <TabPanel  
+          value={value}
+          index={1}>
+         
+          <BasicTable data={weapons}/>
+        </TabPanel>
+
+        <TabPanel  
+          value={value}
+          index={2}>
+            <p>hello</p>
+        </TabPanel>
+
+        <TabPanel  
+          value={value}
+          index={3}>
+            <MPaper>
+            <p>hello</p>
+
+            </MPaper>
+        </TabPanel>
       </Container>
     </Wrapper>
   )

@@ -61,18 +61,24 @@ export default function Home(props) {
           <User>MrFragman</User>
         </Name>
 
-        <PrimaryStats 
-          data={
-            { 
-              kills: 72710, 
-              win: 45.20, 
-              wins: 533, 
-              deaths: 69413, 
-              damage: 2965539,
-              acc: 20.6
+        <div style={{width: "75%"}}>
+          <PrimaryStats 
+            data={
+              { 
+                kills: 72710, 
+                win: 45.20, 
+                wins: 533, 
+                deaths: 69413, 
+                damage: 2965539,
+                acc: 20.6,
+                mvps: 1216,
+                hs: 7046,
+                time: 1475390
+              }
             }
-          }
-        />
+          />
+        </div>
+
       </Section>
 
       <SectionBG
