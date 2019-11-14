@@ -57,7 +57,7 @@ routes.get("/profile/:name", async (req, res) => {
             userProfile: userProfile
         })
     } catch(error) {
-        res.status(401).send({error: 'Usuário não encontrado'})
+        res.status(404).send({error: 'Usuário não encontrado'})
     }
 })
 
