@@ -28,7 +28,7 @@ function BarStats({ data, title, color }) {
           yAxis={
             <LinearYAxis
               type="category"
-              tickSeries={<LinearYAxisTickSeries 
+              tickSeries={<LinearYAxisTickSeries
                 tickSize={100} 
                 label={
                   <LinearXAxisTickLabel 

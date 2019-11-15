@@ -12,11 +12,20 @@ import {
 import PrimaryStats from '../../Components/PrimaryStats';
 import LatestMatch from '../../Components/LatestMatch';
 import OtherStats from '../../Components/OtherStats';
-import BasicTable from '../../Components/DataTable';
+import WeaponTable from '../../Components/WeaponTable';
+import MapTable from '../../Components/MapTable';
+import Histogram from '../../Components/Histogram';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import axios from 'axios'
+
+function changeCaseFirstLetter(params) {
+  if(typeof params === 'string') {
+    return params.charAt(0).toUpperCase() + params.slice(1);
+  }
+  return null;
+}
 
 function a11yProps(index) {
   return {
@@ -45,7 +54,10 @@ function TabPanel(props) {
 export default function Stats(props) {
 
   const [data, setData] = useState({});
-  const [weapons, setWeapons] = useState([]);
+  const [weaponsTable, setWeaponsTable] = useState([]);
+  const [mapsTable, setMapsTable] = useState([]);
+  const [weaponsChart, setWeaponsChart] = useState([]);
+  const [mapsChart, setMapsChart] = useState([]);
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -56,8 +68,20 @@ export default function Stats(props) {
     const loadData = async () => {
       const response = await axios.get('http://localhost:8080/profile/' + props.match.params.playerid);
     
-      const gunNames = Object.getOwnPropertyNames(response.data.user.stats.gun);
+      let gunNames = Object.getOwnPropertyNames(response.data.user.stats.gun);
+      let mapNames = Object.getOwnPropertyNames(response.data.user.stats.map);
+
+      gunNames = gunNames.map(name => {
+        return changeCaseFirstLetter(name);
+      });
+
+      mapNames = mapNames.map(name => {
+        return changeCaseFirstLetter(name);
+      });
+
       const gun = response.data.user.stats.gun;
+      const map = response.data.user.stats.map;
+
       const guns = Object.keys(gun).map(function(key, i) {
         return {
           name: gunNames[i],
@@ -67,10 +91,34 @@ export default function Stats(props) {
         }
       });
 
-      console.log(guns);
+      const gunsChart = Object.keys(gun).map(function(key, i) {
+        return {
+          key: gunNames[i],
+          data: gun[key].kills
+        }
+      });
+
+      const maps = Object.keys(map).map(function(key, i) {
+        return {
+          name: mapNames[i],
+          won: map[key].rounds.won,
+          played: map[key].rounds.played,
+          wr: (map[key].rounds.won / map[key].rounds.played).toFixed(2)
+        }
+      });
+
+      const mapsChart = Object.keys(map).map(function(key, i) {
+        return {
+          key: mapNames[i],
+          data: map[key].rounds.won
+        }
+      });
       
       setData(response.data);
-      setWeapons(guns);
+      setMapsTable(maps);
+      setWeaponsTable(guns);
+      setWeaponsChart(gunsChart);
+      setMapsChart(mapsChart);
     }
 
     loadData();
@@ -161,14 +209,19 @@ export default function Stats(props) {
         <TabPanel  
           value={value}
           index={1}>
-         
-          <BasicTable data={weapons}/>
+
+          <Title>Weapon Usage</Title>
+          <Histogram data={weaponsChart}/>
+          <WeaponTable data={weaponsTable}/>
         </TabPanel>
 
         <TabPanel  
           value={value}
           index={2}>
-            <p>hello</p>
+
+            <Title>Map Rounds Won</Title>
+            <Histogram data={mapsChart} />
+            <MapTable data={mapsTable} />
         </TabPanel>
 
         <TabPanel  

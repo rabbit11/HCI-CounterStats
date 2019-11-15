@@ -10,7 +10,7 @@ import {
   MListItemText
 } from './styles';
 
-const OtherStats = ({data}) => {
+function OtherStats({data}) {
   return (
     <ListContainer>
       <MList classes={{ root: 'my-root-class' }}>

@@ -68,7 +68,7 @@ const columns = [
   },
 ];
 
-const BasicTable = ({data}) => (
+const WeaponTable = ({data}) => (
   <DataTable
     title="Weapon Stats"
     columns={columns}
@@ -78,4 +78,4 @@ const BasicTable = ({data}) => (
   />
 );
 
-export default BasicTable;
+export default WeaponTable;
