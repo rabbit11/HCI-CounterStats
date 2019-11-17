@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 export const Container = styled.div`
   margin-top: 15px;
@@ -26,10 +28,29 @@ export const MAvatar = styled(Avatar)`
 
 export const MTabs = styled(Tabs)`
   &.my-root-class {
-	color: #fff;
+	  color: #fff;
   }
 `;
 
+export const MButton = styled(Button)`
+  height: 53px;
+`;
+
+export const Search = styled(TextField)`
+  /* .MuiFormControl-marginNormal {
+    margin-top: 0;
+    margin-bottom: 0;
+  } */
+
+  &.my-root-class {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  background-color: #fff;
+  width: 500px;
+  border-radius: 5px;
+`;
 
 export const MPaper = styled(Paper)`
   &.my-root-class {
@@ -47,11 +68,18 @@ export const PlayerProfile = styled.div`
   align-items: center;
 `;
 
+export const SearchContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+
 export const Title = styled.p`
   color: orange;
 	font-size: 35px;
 	font-weight: bold;
-`
+`;
 
 export const Background = styled.div`
   position: fixed;
@@ -67,4 +95,4 @@ export const Background = styled.div`
   -o-filter: blur(5px);
   -ms-filter: blur(5px);
   filter: blur(5px);
-`
+`;

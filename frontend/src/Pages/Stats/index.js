@@ -8,12 +8,16 @@ import {
   Wrapper,
   Background,
   Title,
+  Search,
+  MButton,
+  SearchContainer
 } from './styles';
 import PrimaryStats from '../../Components/PrimaryStats';
 import LatestMatch from '../../Components/LatestMatch';
 import OtherStats from '../../Components/OtherStats';
 import WeaponTable from '../../Components/WeaponTable';
 import MapTable from '../../Components/MapTable';
+import CompareChart from '../../Components/CompareChart';
 import Histogram from '../../Components/Histogram';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
@@ -53,7 +57,10 @@ function TabPanel(props) {
 
 export default function Stats(props) {
 
-  const [data, setData] = useState({});
+  const [player2Data, setPlayer2Data] =  useState({});
+  const [player2Name, setPlayer2Name] = useState("");
+
+  const [player1Data, setPlayer1Data] = useState({});
   const [weaponsTable, setWeaponsTable] = useState([]);
   const [mapsTable, setMapsTable] = useState([]);
   const [weaponsChart, setWeaponsChart] = useState([]);
@@ -114,7 +121,7 @@ export default function Stats(props) {
         }
       });
       
-      setData(response.data);
+      setPlayer1Data(response.data);
       setMapsTable(maps);
       setWeaponsTable(guns);
       setWeaponsChart(gunsChart);
@@ -122,20 +129,25 @@ export default function Stats(props) {
     }
 
     loadData();
-  }, [props.match.params.playerid])
+  }, [props.match.params.playerid]);
+
+  const loadPlayer2 = async () => {
+    const response = await axios.get('http://localhost:8080/profile/' + player2Name);
+    setPlayer2Data(response.data);
+  }
 
   return(
     <Wrapper>
       <Background />
       <Container>
-        {data.userProfile && <PlayerProfile>
+        {player1Data.userProfile && <PlayerProfile>
           <MAvatar 
             alt="fragman" 
-            src={data.userProfile.photourl} 
+            src={player1Data.userProfile.photourl} 
             className="my-root-class"
           />
 
-          <Title>{data.userProfile.username}</Title>
+          <Title>{player1Data.userProfile.username}</Title>
         </PlayerProfile>}
         <MPaper classes={{ root: 'my-root-class' }}>
           <MTabs
@@ -154,36 +166,36 @@ export default function Stats(props) {
           value={value}
           index={0}
         >
-          {data.user && 
+          {player1Data.user && 
             <PrimaryStats
               data={
                 {
-                  kills: data.user.stats.kills,
-                  win: (data.user.stats.matches.won/data.user.stats.matches.played)*100,
-                  wins: data.user.stats.matches.won,
-                  deaths: data.user.stats.deaths,
-                  damage: data.user.stats.damage,
-                  acc: (data.user.stats.hits/data.user.stats.shots)*100,
-                  time: data.user.stats.time,
-                  mvps: data.user.stats.mvps,
-                  hs: data.user.stats.headshots
+                  kills: player1Data.user.stats.kills,
+                  win: (player1Data.user.stats.matches.won/player1Data.user.stats.matches.played)*100,
+                  wins: player1Data.user.stats.matches.won,
+                  deaths: player1Data.user.stats.deaths,
+                  damage: player1Data.user.stats.damage,
+                  acc: (player1Data.user.stats.hits/player1Data.user.stats.shots)*100,
+                  time: player1Data.user.stats.time,
+                  mvps: player1Data.user.stats.mvps,
+                  hs: player1Data.user.stats.headshots
                 }
               }
             />
           }
-          {data.user &&
+          {player1Data.user &&
             <div style={{display: "flex", flexDirection: "row", width: "100%", justifyContent: "center"}}>
               <div style={{width: "50%"}}>
                 <Title>Latest Match</Title>
                 <LatestMatch 
                   data={
                     {
-                      wins: data.user.stats.last.wins,
-                      rounds: data.user.stats.last.rounds,
-                      kills: data.user.stats.last.kills,
-                      deaths: data.user.stats.last.deaths,
-                      mvps: data.user.stats.last.mvps,
-                      money: data.user.stats.last.spending
+                      wins: player1Data.user.stats.last.wins,
+                      rounds: player1Data.user.stats.last.rounds,
+                      kills: player1Data.user.stats.last.kills,
+                      deaths: player1Data.user.stats.last.deaths,
+                      mvps: player1Data.user.stats.last.mvps,
+                      money: player1Data.user.stats.last.spending
                     }
                   }
                 />
@@ -193,11 +205,11 @@ export default function Stats(props) {
                 <OtherStats 
                   data={
                     {
-                      flashbang: data.user.stats.flashKill,
-                      snipers: data.user.stats.snipers,
-                      donated: data.user.stats.donated,
-                      knife: data.user.stats.knife,
-                      defused: data.user.stats.bombs.defused,
+                      flashbang: player1Data.user.stats.flashKill,
+                      snipers: player1Data.user.stats.snipers,
+                      donated: player1Data.user.stats.donated,
+                      knife: player1Data.user.stats.knife,
+                      defused: player1Data.user.stats.bombs.defused,
                     }
                   }
                 />
@@ -219,7 +231,7 @@ export default function Stats(props) {
           value={value}
           index={2}>
 
-            <Title>Map Rounds Won</Title>
+            <Title>Map Rounds Played</Title>
             <Histogram data={mapsChart} />
             <MapTable data={mapsTable} />
         </TabPanel>
@@ -227,10 +239,46 @@ export default function Stats(props) {
         <TabPanel  
           value={value}
           index={3}>
-            <MPaper>
-            <p>hello</p>
+            <Title>Compare Players</Title>
+            <SearchContainer>
+              <Search
+                classes={{ root: 'my-root-class' }}
+                id="standard-search"
+                label="Steam ID of player to compare"
+                type="search"
+                margin="normal"
+                variant="filled"
+                onChange={(e) => setPlayer2Name(e.target.value)}
+              />
+              <MButton
+                variant="contained"
+                color="primary"
+                onClick={() => loadPlayer2()}
+              >
+                Find
+              </MButton>
+            </SearchContainer>
+            {player2Data.user && 
+              <CompareChart 
+                player2 = {{
+                  name: player2Data.userProfile.username,
+                  pic: player2Data.userProfile.photourl,
+                  adr: Math.round((player2Data.user.stats.damage / player2Data.user.stats.rounds.played) * 1e2 ) / 1e2,
+                  kdr: Math.round((player2Data.user.stats.kills / player2Data.user.stats.deaths) * 1e2 ) / 1e2,
+                  hs: player2Data.user.stats.headshots,
+                  mvps: player2Data.user.stats.mvps
+                }}
 
-            </MPaper>
+                player1 = {{
+                  name: player1Data.userProfile.username,
+                  pic: player1Data.userProfile.photourl,
+                  adr: Math.round((player1Data.user.stats.damage / player1Data.user.stats.rounds.played) * 1e2 ) / 1e2,
+                  kdr: Math.round((player1Data.user.stats.kills / player1Data.user.stats.deaths) * 1e2 ) / 1e2,
+                  hs: player1Data.user.stats.headshots,
+                  mvps: player1Data.user.stats.mvps
+                }}
+              />
+            }
         </TabPanel>
       </Container>
     </Wrapper>

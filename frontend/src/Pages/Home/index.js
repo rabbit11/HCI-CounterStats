@@ -144,6 +144,7 @@ export default function Home(props) {
         <CompareChart 
           player1={{
             name: "MrFragman",
+            pic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4G0LdAD09Z8uFZTTDFGSK12wwJR559zU6pyKcXV2_cjijYeVT",
             adr: 131.54,
             kdr: 1.02,
             hs: 5640,
@@ -151,6 +152,7 @@ export default function Home(props) {
           }}
           player2={{
             name: "20matar70fugir",
+            pic: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4G0LdAD09Z8uFZTTDFGSK12wwJR559zU6pyKcXV2_cjijYeVT",
             adr: 142.87,
             kdr: 1.04,
             hs: 5382,

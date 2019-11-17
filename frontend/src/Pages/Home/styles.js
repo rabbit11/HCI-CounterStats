@@ -45,7 +45,6 @@ export const Search = styled(TextField)`
 
 export const MButton = styled(Button)`
   height: 45px;
-
 `
 
 export const ScrollDown = styled(ScrollDownIndicator)`
