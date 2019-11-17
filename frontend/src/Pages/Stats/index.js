@@ -10,7 +10,8 @@ import {
   Title,
   Search,
   MButton,
-  SearchContainer
+  SearchContainer,
+  CompareContainer
 } from './styles';
 import PrimaryStats from '../../Components/PrimaryStats';
 import LatestMatch from '../../Components/LatestMatch';
@@ -18,6 +19,7 @@ import OtherStats from '../../Components/OtherStats';
 import WeaponTable from '../../Components/WeaponTable';
 import MapTable from '../../Components/MapTable';
 import CompareChart from '../../Components/CompareChart';
+import MultiCategory from '../../Components/MultiCategory';
 import Histogram from '../../Components/Histogram';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
@@ -259,25 +261,83 @@ export default function Stats(props) {
               </MButton>
             </SearchContainer>
             {player2Data.user && 
-              <CompareChart 
-                player2 = {{
-                  name: player2Data.userProfile.username,
-                  pic: player2Data.userProfile.photourl,
-                  adr: Math.round((player2Data.user.stats.damage / player2Data.user.stats.rounds.played) * 1e2 ) / 1e2,
-                  kdr: Math.round((player2Data.user.stats.kills / player2Data.user.stats.deaths) * 1e2 ) / 1e2,
-                  hs: player2Data.user.stats.headshots,
-                  mvps: player2Data.user.stats.mvps
-                }}
+              <CompareContainer>
+                <MultiCategory 
+                  data={[
+                    {
+                      key: "Win Ratio",
+                      data: [
+                        {
+                          key: player1Data.userProfile.username,
+                          data: (player1Data.user.stats.matches.won/player1Data.user.stats.matches.played)*100
+                        },
+                        {
+                          key: player2Data.userProfile.username,
+                          data: (player2Data.user.stats.matches.won/player2Data.user.stats.matches.played)*100
+                        },
+                      ],
+                    },
+                    {
+                      key: "Accuracy",
+                      data: [
+                        {
+                          key: player1Data.userProfile.username,
+                          data: (player1Data.user.stats.hits/player1Data.user.stats.shots)*100
+                        },
+                        {
+                          key: player2Data.userProfile.username,
+                          data: (player2Data.user.stats.hits/player2Data.user.stats.shots)*100
+                        },
+                      ]
+                    },
+                    {
+                      key: "MVPs/Rounds",
+                      data: [
+                        {
+                          key: player1Data.userProfile.username,
+                          data: (player1Data.user.stats.mvps/player1Data.user.stats.rounds.played)*100
+                        },
+                        {
+                          key: player2Data.userProfile.username,
+                          data: (player2Data.user.stats.mvps/player2Data.user.stats.rounds.played)*100
+                        },
+                      ]
+                    },
+                    {
+                      key: "Headshots/Kills",
+                      data: [
+                        {
+                          key: player1Data.userProfile.username,
+                          data: (player1Data.user.stats.headshots/player1Data.user.stats.kills)*100
+                        },
+                        {
+                          key: player2Data.userProfile.username,
+                          data: (player2Data.user.stats.headshots/player2Data.user.stats.kills)*100
+                        },
+                      ]
+                    }
+                  ]}
+                />
+                <CompareChart 
+                  player2 = {{
+                    name: player2Data.userProfile.username,
+                    pic: player2Data.userProfile.photourl,
+                    adr: Math.round((player2Data.user.stats.damage / player2Data.user.stats.rounds.played) * 1e2 ) / 1e2,
+                    kdr: Math.round((player2Data.user.stats.kills / player2Data.user.stats.deaths) * 1e2 ) / 1e2,
+                    hs: player2Data.user.stats.headshots,
+                    mvps: player2Data.user.stats.mvps
+                  }}
 
-                player1 = {{
-                  name: player1Data.userProfile.username,
-                  pic: player1Data.userProfile.photourl,
-                  adr: Math.round((player1Data.user.stats.damage / player1Data.user.stats.rounds.played) * 1e2 ) / 1e2,
-                  kdr: Math.round((player1Data.user.stats.kills / player1Data.user.stats.deaths) * 1e2 ) / 1e2,
-                  hs: player1Data.user.stats.headshots,
-                  mvps: player1Data.user.stats.mvps
-                }}
-              />
+                  player1 = {{
+                    name: player1Data.userProfile.username,
+                    pic: player1Data.userProfile.photourl,
+                    adr: Math.round((player1Data.user.stats.damage / player1Data.user.stats.rounds.played) * 1e2 ) / 1e2,
+                    kdr: Math.round((player1Data.user.stats.kills / player1Data.user.stats.deaths) * 1e2 ) / 1e2,
+                    hs: player1Data.user.stats.headshots,
+                    mvps: player1Data.user.stats.mvps
+                  }}
+                />
+              </CompareContainer>
             }
         </TabPanel>
       </Container>

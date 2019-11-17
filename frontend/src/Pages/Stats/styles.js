@@ -68,6 +68,14 @@ export const PlayerProfile = styled.div`
   align-items: center;
 `;
 
+export const CompareContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  flex-direction: column;
+`;
+
 export const SearchContainer = styled.div`
   display: flex;
   align-items: center;
