@@ -9,6 +9,7 @@ import {
   Data,
   Title
 } from './styles';
+import Tooltip from '@material-ui/core/Tooltip';
 
 function CompareChart({player1, player2}) {
   const { adr, kdr, hs, mvps, name, pic } = player1;
@@ -32,7 +33,11 @@ function CompareChart({player1, player2}) {
         {Math.max(kdr, kdr2) === kdr 
           ? <p style={{color: 'orange', fontWeight: 'bold'}}>{kdr}</p> 
           : <Data>{kdr}</Data>}
-        <Title>KDR</Title>
+
+        <Tooltip title="Kill/Death Ratio">
+          <Title>KDR</Title>
+        </Tooltip>
+
         {Math.max(kdr, kdr2) === kdr2 
           ? <p style={{color: 'orange', fontWeight: 'bold'}}>{kdr2}</p> 
           : <Data>{kdr2}</Data>}
@@ -42,7 +47,11 @@ function CompareChart({player1, player2}) {
         {Math.max(adr, adr2) === adr 
           ? <p style={{color: 'orange', fontWeight: 'bold'}}>{adr}</p> 
           : <Data>{adr}</Data>}
-        <Title>ADR</Title>
+
+        <Tooltip title="Average Damage per Round">
+          <Title>ADR</Title>
+        </Tooltip>
+
         {Math.max(adr, adr2) === adr2 
           ? <p style={{color: 'orange', fontWeight: 'bold'}}>{adr2}</p> 
           : <Data>{adr2}</Data>}
@@ -52,7 +61,11 @@ function CompareChart({player1, player2}) {
         {Math.max(mvps, mvps2) === mvps 
           ? <p style={{color: 'orange', fontWeight: 'bold'}}>{mvps}</p> 
           : <Data>{mvps}</Data>}
-        <Title>MVPs</Title>
+
+        <Tooltip title="Most Valuable Player Medals">
+          <Title>MVPs</Title>
+        </Tooltip>
+
         {Math.max(mvps, mvps2) === mvps2 
           ? <p style={{color: 'orange', fontWeight: 'bold'}}>{mvps2}</p> 
           : <Data>{mvps2}</Data>}
@@ -62,7 +75,11 @@ function CompareChart({player1, player2}) {
         {Math.max(hs, hs2) === hs 
           ? <p style={{color: 'orange', fontWeight: 'bold'}}>{hs}</p> 
           : <Data>{hs}</Data>}
-        <Title>HS</Title>
+
+        <Tooltip title="Headshot Kills">
+          <Title>HS</Title>
+        </Tooltip>
+
         {Math.max(hs, hs2) === hs2 
           ? <p style={{color: 'orange', fontWeight: 'bold'}}>{hs2}</p> 
           : <Data>{hs2}</Data>}
